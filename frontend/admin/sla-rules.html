@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SLA rules — SolveIt Admin</title>
+<link rel="stylesheet" href="../css/main.css" />
+<link rel="stylesheet" href="../css/components.css" />
+<link rel="stylesheet" href="../css/pages.css" />
+</head>
+<body>
+<div id="navbar" class="navbar"></div>
+<div class="container">
+  <h2>Admin console</h2>
+  <div class="admin-tabs">
+    <a href="/admin/analytics.html" data-tab="analytics">Analytics</a>
+    <a href="/admin/users.html" data-tab="users">Users</a>
+    <a href="/admin/staff.html" data-tab="staff">Staff workload</a>
+    <a href="/admin/categories.html" data-tab="categories">Categories</a>
+    <a href="/admin/departments.html" data-tab="departments">Departments</a>
+    <a href="/admin/sla-rules.html" data-tab="sla-rules">SLA rules</a>
+    <a href="/admin/escalations.html" data-tab="escalations">Escalations</a>
+    <a href="/admin/audit-logs.html" data-tab="audit-logs">Audit logs</a>
+  </div>
+  <h3 class="mb-3">SLA rules</h3>
+  <div class="card mb-4">
+    <h4>Add SLA rule</h4>
+    <form id="sla-rule-form" class="flex gap-2" style="flex-wrap:wrap;align-items:flex-end;">
+      <div class="form-group" style="min-width:140px;"><label>Priority</label>
+        <select name="priority"><option value="LOW">LOW</option><option value="MEDIUM">MEDIUM</option><option value="HIGH">HIGH</option><option value="CRITICAL">CRITICAL</option></select>
+      </div>
+      <div class="form-group" style="min-width:160px;"><label>Category ID (optional = default)</label><input type="text" name="categoryId" placeholder="optional UUID" /></div>
+      <div class="form-group" style="min-width:120px;"><label>Response hrs</label><input type="number" name="responseHours" min="1" required /></div>
+      <div class="form-group" style="min-width:120px;"><label>Resolution hrs</label><input type="number" name="resolutionHours" min="1" required /></div>
+      <button type="submit" class="btn btn-primary" style="margin-bottom:16px;">Add</button>
+    </form>
+  </div>
+  <div id="sla-rules-root"></div>
+</div>
+<script src="../js/api.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/notifications.js"></script>
+<script src="../js/admin.js"></script>
+<script>
+  renderNavbar('admin');
+  initAdminSlaRules();
+  document.querySelector('[data-tab="sla-rules"]').classList.add('active');
+</script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Complaints — SolveIt</title>
+<meta name="description" content="Browse, filter, and search all complaints on SolveIt." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="../css/main.css" />
+<link rel="stylesheet" href="../css/components.css" />
+<link rel="stylesheet" href="../css/pages.css" />
+</head>
+<body>
+<div id="navbar" class="navbar"></div>
+
+<div class="container" style="padding-top: var(--space-6);">
+  <div class="flex-between mb-4">
+    <div>
+      <h2 style="margin-bottom: 4px;">Complaints</h2>
+      <p class="text-muted text-sm">All complaints you have access to</p>
+    </div>
+    <a href="/complaints/create.html" class="btn btn-primary btn-sm">+ New complaint</a>
+  </div>
+
+  <div class="filters-bar">
+    <input type="search" id="filter-search" placeholder="🔍  Search title or description…" style="flex:2; min-width: 200px;" />
+    <select id="filter-status">
+      <option value="">All statuses</option>
+      <option value="OPEN">Open</option>
+      <option value="ASSIGNED">Assigned</option>
+      <option value="IN_PROGRESS">In progress</option>
+      <option value="WAITING_FOR_USER">Waiting for user</option>
+      <option value="RESOLVED">Resolved</option>
+      <option value="REOPENED">Reopened</option>
+      <option value="ESCALATED">Escalated</option>
+      <option value="CLOSED">Closed</option>
+      <option value="REJECTED">Rejected</option>
+    </select>
+    <select id="filter-priority">
+      <option value="">All priorities</option>
+      <option value="LOW">Low</option>
+      <option value="MEDIUM">Medium</option>
+      <option value="HIGH">High</option>
+      <option value="CRITICAL">Critical</option>
+    </select>
+  </div>
+
+  <div id="complaint-list"></div>
+</div>
+
+<script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+<script src="../js/api.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/socket.js"></script>
+<script src="../js/notifications.js"></script>
+<script src="../js/complaints.js"></script>
+<script>
+  renderNavbar('complaints');
+  initComplaintList();
+</script>
+</body>
+</html>

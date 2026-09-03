@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Staff Dashboard — SolveIt</title>
+<meta name="description" content="Staff complaint queue and workload overview on SolveIt." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="../css/main.css" />
+<link rel="stylesheet" href="../css/components.css" />
+<link rel="stylesheet" href="../css/pages.css" />
+</head>
+<body>
+<div id="navbar" class="navbar"></div>
+
+<div class="container" style="padding-top: var(--space-6);">
+  <div class="flex-between mb-4">
+    <div>
+      <h2 style="margin-bottom: 4px;">Staff Dashboard</h2>
+      <p class="text-muted text-sm">Complaints assigned to you</p>
+    </div>
+    <a href="/complaints/list.html" class="btn btn-ghost btn-sm">All complaints</a>
+  </div>
+
+  <div id="stats-row" class="stats-row">
+    <div class="stat-card"><div class="skeleton skeleton-text w-40" style="height:36px"></div><div class="skeleton skeleton-text w-60 mt-2"></div></div>
+    <div class="stat-card"><div class="skeleton skeleton-text w-40" style="height:36px"></div><div class="skeleton skeleton-text w-60 mt-2"></div></div>
+    <div class="stat-card"><div class="skeleton skeleton-text w-40" style="height:36px"></div><div class="skeleton skeleton-text w-60 mt-2"></div></div>
+  </div>
+
+  <div class="flex-between mb-3 mt-5">
+    <h3>My Queue</h3>
+    <div class="flex gap-2" id="staff-filter-group">
+      <button type="button" class="btn btn-sm btn-primary staff-filter-btn" data-filter="all">All</button>
+      <button type="button" class="btn btn-sm btn-secondary staff-filter-btn" data-filter="active">Active</button>
+      <button type="button" class="btn btn-sm btn-secondary staff-filter-btn" data-filter="resolved">Resolved</button>
+    </div>
+  </div>
+  <div id="dashboard-list">
+    <div class="skeleton-list">
+      <div class="skeleton skeleton-card"></div>
+      <div class="skeleton skeleton-card"></div>
+      <div class="skeleton skeleton-card"></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+<script src="../js/api.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/socket.js"></script>
+<script src="../js/notifications.js"></script>
+<script src="../js/complaints.js"></script>
+<script src="../js/dashboard.js"></script>
+<script>
+  renderNavbar('dashboard');
+  initStaffDashboard();
+</script>
+</body>
+</html>

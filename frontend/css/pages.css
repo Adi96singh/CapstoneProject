@@ -1,0 +1,401 @@
+/* ============================================================================
+   SolveIt — Page-specific styles
+   ========================================================================= */
+
+/* ===== Landing / Hero ===== */
+.hero {
+  text-align: center;
+  padding: 88px 20px 72px;
+  position: relative;
+  overflow: hidden;
+  background: var(--gradient-hero);
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* Soft color wash */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 55% at 18% 40%, rgba(79, 70, 229, 0.10) 0%, transparent 62%),
+    radial-gradient(ellipse 55% 55% at 82% 22%, rgba(124, 58, 237, 0.09) 0%, transparent 62%),
+    radial-gradient(ellipse 50% 45% at 50% 88%, rgba(37, 99, 235, 0.06) 0%, transparent 62%);
+  pointer-events: none;
+}
+
+/* Faint grid overlay for texture */
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(19, 26, 43, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(19, 26, 43, 0.035) 1px, transparent 1px);
+  background-size: 56px 56px;
+  pointer-events: none;
+  mask-image: linear-gradient(to bottom, transparent, rgba(0,0,0,0.55) 28%, rgba(0,0,0,0.55) 72%, transparent);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, rgba(0,0,0,0.55) 28%, rgba(0,0,0,0.55) 72%, transparent);
+}
+
+.hero > * { position: relative; z-index: 1; }
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--color-surface);
+  border: 1px solid #d5d8fb;
+  color: var(--color-primary-dark);
+  padding: 6px 16px;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: var(--space-5);
+  box-shadow: var(--shadow-sm);
+}
+
+.hero h1 {
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  max-width: 780px;
+  margin: 0 auto var(--space-4);
+  color: var(--color-text);
+  letter-spacing: -0.04em;
+  line-height: 1.08;
+}
+
+/* Accent the second line of the headline instead of gradient-filling all of
+   it — gradient text on light backgrounds hurts legibility. */
+.hero h1 .accent {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: var(--color-primary);
+}
+
+.hero p {
+  color: var(--color-text-muted);
+  max-width: 600px;
+  margin: 0 auto var(--space-6);
+  font-size: 1.08rem;
+  line-height: 1.7;
+}
+
+.hero-cta {
+  display: flex;
+  gap: var(--space-3);
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: var(--space-8);
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: var(--space-4);
+  margin-top: var(--space-6);
+  text-align: left;
+}
+
+.feature-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+}
+
+.feature-card:hover {
+  border-color: var(--color-border-strong);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.feature-icon {
+  font-size: 1.6rem;
+  margin-bottom: var(--space-3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  background: var(--color-primary-soft);
+}
+
+.feature-card h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: var(--space-2);
+}
+
+.feature-card p {
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ===== Auth pages ===== */
+.auth-card {
+  min-height: calc(100vh - 61px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6) var(--space-5);
+  position: relative;
+  background: var(--gradient-hero);
+}
+
+.auth-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 45% at 28% 35%, rgba(79, 70, 229, 0.09) 0%, transparent 62%),
+    radial-gradient(ellipse 45% 45% at 72% 65%, rgba(124, 58, 237, 0.07) 0%, transparent 62%);
+  pointer-events: none;
+}
+
+.auth-panel {
+  position: relative;
+  width: 100%;
+  max-width: 430px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-lg);
+}
+
+.auth-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: var(--space-5);
+}
+
+.auth-logo-mark {
+  width: 42px;
+  height: 42px;
+  background: var(--gradient-primary);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  box-shadow: var(--shadow-glow);
+}
+
+.auth-logo-text {
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: var(--color-text);
+}
+
+.auth-panel h2 {
+  text-align: center;
+  font-size: 1.4rem;
+  margin-bottom: var(--space-5);
+}
+
+.auth-intro {
+  text-align: center;
+  margin-top: calc(var(--space-5) * -1 + var(--space-2));
+  margin-bottom: var(--space-5);
+}
+
+.auth-switch {
+  text-align: center;
+  margin-top: var(--space-4);
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+.auth-switch a { font-weight: 600; }
+
+.demo-creds {
+  background: var(--color-surface-sunken);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-3) var(--space-4);
+  margin-top: var(--space-4);
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  line-height: 1.85;
+  font-family: var(--font-mono);
+}
+
+.demo-creds strong {
+  color: var(--color-text);
+  font-family: var(--font-sans);
+}
+
+/* Password show/hide toggle */
+.password-wrapper { position: relative; }
+.password-toggle {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 4px 6px;
+  line-height: 1;
+  border-radius: 6px;
+  transition: background var(--transition-base);
+}
+.password-toggle:hover { background: var(--color-surface-sunken); }
+.password-wrapper input { padding-right: 42px; }
+
+/* ===== Dashboard ===== */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+.complaint-list { display: flex; flex-direction: column; gap: var(--space-3); }
+
+.complaint-card { padding: var(--space-4) var(--space-5); }
+
+/* Cards are anchors so they work without JS and satisfy a strict CSP. */
+a.complaint-link { display: block; color: inherit; text-decoration: none; }
+a.complaint-link:hover { color: inherit; text-decoration: none; }
+
+.complaint-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.complaint-card-body { flex: 1; min-width: 0; }
+.complaint-title { font-size: 0.925rem; display: block; margin-bottom: 4px; font-weight: 650; }
+.complaint-badges { flex-shrink: 0; }
+
+.complaint-row .meta {
+  color: var(--color-text-muted);
+  font-size: 0.78rem;
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.filters-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+  padding: var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.filters-bar select,
+.filters-bar input[type="search"] {
+  width: auto;
+  min-width: 160px;
+  flex: 1;
+}
+
+.filters-bar input[type="search"] { flex: 2; min-width: 200px; }
+
+/* ===== Complaint detail ===== */
+.detail-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--space-5);
+  align-items: start;
+}
+
+@media (max-width: 880px) { .detail-grid { grid-template-columns: 1fr; } }
+
+.detail-desc { margin: 0; line-height: 1.7; white-space: pre-wrap; }
+
+.detail-rows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.status-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.timeline {
+  border-left: 2px solid var(--color-border);
+  padding-left: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-top: var(--space-3);
+}
+
+.timeline-item { position: relative; }
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -21px;
+  top: 6px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  border: 2px solid var(--color-surface);
+  box-shadow: 0 0 0 2px var(--color-primary-soft);
+}
+
+.image-thumbs { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); }
+.image-thumbs img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+.image-thumbs img:hover { transform: scale(1.04); box-shadow: var(--shadow-md); }
+
+/* File input styling */
+.file-input-label {
+  display: block;
+  padding: var(--space-4);
+  border: 2px dashed var(--color-border-strong);
+  border-radius: var(--radius-md);
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: 0;
+  cursor: pointer;
+  transition: border-color var(--transition-base), background var(--transition-base), color var(--transition-base);
+  margin-top: var(--space-3);
+  margin-bottom: 0;
+}
+.file-input-label:hover {
+  border-color: var(--color-primary);
+  background: var(--color-primary-soft);
+  color: var(--color-primary-dark);
+}
+
+input[type="file"] { display: none; }
+
+/* ===== Admin ===== */
+.admin-section-note { max-width: 70ch; }

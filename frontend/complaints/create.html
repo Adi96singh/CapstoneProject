@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>File a Complaint — SolveIt</title>
+<meta name="description" content="Submit a new complaint on SolveIt for fast AI-powered triage and resolution." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="../css/main.css" />
+<link rel="stylesheet" href="../css/components.css" />
+<link rel="stylesheet" href="../css/pages.css" />
+</head>
+<body>
+<div id="navbar" class="navbar"></div>
+
+<div style="max-width: 600px; margin: 0 auto; padding: var(--space-6) var(--space-5);">
+  <div class="mb-4">
+    <a href="javascript:history.back()" class="text-muted text-sm" style="display:inline-flex;align-items:center;gap:4px;">← Back</a>
+    <h2 style="margin-top: var(--space-3); margin-bottom: 4px;">File a new complaint</h2>
+    <p class="text-muted text-sm">Our AI will automatically classify and prioritize it for you.</p>
+  </div>
+
+  <div class="card">
+    <form id="create-complaint-form">
+      <div class="form-group">
+        <label for="title">Title <span class="text-faint">(brief summary)</span></label>
+        <input type="text" id="title" maxlength="150" placeholder="e.g. Hot water not working in Block B" required />
+      </div>
+      <div class="form-group">
+        <label for="description">Description <span class="text-faint">(details help faster resolution)</span></label>
+        <textarea id="description" maxlength="5000" placeholder="Describe the issue — what happened, when, and any relevant context…" required></textarea>
+      </div>
+      <div class="form-group">
+        <label for="categoryId">Category</label>
+        <select id="categoryId">
+          <option value="">Loading categories…</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="priority">Priority</label>
+        <select id="priority">
+          <option value="LOW">Low — minor inconvenience</option>
+          <option value="MEDIUM" selected>Medium — affects daily use</option>
+          <option value="HIGH">High — urgent, multiple people affected</option>
+          <option value="CRITICAL">Critical — safety or security risk</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="locationText">Location <span class="text-faint">(optional)</span></label>
+        <input type="text" id="locationText" maxlength="200" placeholder="e.g. Block C, Room 204" />
+      </div>
+      <button type="submit" class="btn btn-primary btn-block btn-lg">Submit complaint</button>
+    </form>
+  </div>
+</div>
+
+<script src="../js/api.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/complaints.js"></script>
+<script>
+  renderNavbar();
+  initComplaintCreate();
+</script>
+</body>
+</html>

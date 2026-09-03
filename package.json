@@ -1,0 +1,15 @@
+{
+  "name": "solveit",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Smart Complaint & Resolution Platform",
+  "scripts": {
+    "start": "node backend/server.js",
+    "worker": "node backend/src/workers/index.js",
+    "dev": "npm run dev --prefix backend",
+    "postinstall": "npm install --prefix backend",
+    "migrate": "npm run migrate --prefix backend",
+    "seed": "npm run seed --prefix backend",
+    "test": "npm test --prefix backend"
+  }
+}

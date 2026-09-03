@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Complaint Detail — SolveIt</title>
+<meta name="description" content="View full complaint details, timeline, comments, and AI-assisted resolution on SolveIt." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="../css/main.css" />
+<link rel="stylesheet" href="../css/components.css" />
+<link rel="stylesheet" href="../css/pages.css" />
+<!-- Cashfree JS SDK for checkout modal -->
+<script src="https://sdk.cashfree.com/js/v3/cashfree.js"></script>
+</head>
+<body>
+<div id="navbar" class="navbar"></div>
+
+<div class="container" style="padding-top: var(--space-5);">
+  <a href="javascript:history.back()" class="text-muted text-sm mb-4" style="display:inline-flex;align-items:center;gap:4px;">← Back to list</a>
+
+  <div class="flex-between mb-4 mt-3">
+    <div style="min-width:0; flex:1;">
+      <h2 id="complaint-title" style="margin-bottom:4px;">Loading…</h2>
+      <div id="complaint-meta" class="text-muted text-sm"></div>
+    </div>
+    <div id="complaint-badges" class="flex gap-2" style="flex-shrink:0; margin-left: var(--space-4);"></div>
+  </div>
+
+  <div class="detail-grid">
+    <!-- Left column -->
+    <div>
+      <div class="card mb-4">
+        <h4>📝 Description</h4>
+        <p id="complaint-description" style="margin:0; line-height:1.7; white-space:pre-wrap;"></p>
+        <p class="text-muted text-sm mt-3">📍 <span id="complaint-location"></span></p>
+        <div class="image-thumbs" id="complaint-images"></div>
+        <label class="file-input-label mt-3" for="image-upload">
+          📎 Add attachment (JPEG / PNG / PDF · max 5 MB)
+          <input type="file" id="image-upload" accept="image/jpeg,image/png,application/pdf" />
+        </label>
+      </div>
+
+      <div class="card mb-4">
+        <h4>🤖 AI Assist</h4>
+        <div class="flex gap-2 mb-3">
+          <button class="btn btn-secondary btn-sm" id="ai-summary-btn">Summarize thread</button>
+          <button class="btn btn-secondary btn-sm" id="ai-suggest-btn">Suggest resolution</button>
+        </div>
+        <div id="ai-panel" class="text-sm"></div>
+      </div>
+
+      <div class="card">
+        <h4>💬 Comments</h4>
+        <div id="comment-list"></div>
+        <form id="comment-form" class="mt-4">
+          <div class="form-group">
+            <label for="comment-content">Add a comment</label>
+            <textarea id="comment-content" placeholder="Type your message here…" rows="3" required></textarea>
+          </div>
+          <div id="internal-note-row" class="flex gap-2 mb-3" style="align-items:center;">
+            <input type="checkbox" id="comment-internal" style="width:auto;display:inline-block;flex-shrink:0;" />
+            <label for="comment-internal" style="margin:0;text-transform:none;letter-spacing:0;font-weight:400;font-size:0.85rem;color:var(--color-text-muted);">
+              Internal note <span class="text-faint">(staff &amp; admin only — hidden from complainant)</span>
+            </label>
+          </div>
+          <button type="submit" class="btn btn-primary btn-sm">Post comment</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Right column -->
+    <div>
+      <!-- Admin Staff Assignment Card (visible only to admins) -->
+      <div class="card mb-4" id="admin-assign-card" style="display:none; border:1px solid var(--color-primary-faint, #3b82f644);">
+        <h4>👤 Assign / Reassign Staff</h4>
+        <p class="text-muted text-sm mb-3">Admin controls: assign this task to an active staff member.</p>
+        <div class="form-group mb-2">
+          <label for="admin-staff-select">Select Staff Member</label>
+          <select id="admin-staff-select" style="width:100%; padding:8px; border-radius:6px; background:var(--color-bg); border:1px solid var(--color-border); color:inherit;">
+            <option value="">Loading staff list…</option>
+          </select>
+        </div>
+        <div class="form-group mb-3">
+          <label for="admin-assign-note">Assignment Note (optional)</label>
+          <input type="text" id="admin-assign-note" placeholder="Instructions or reason for assignment…" style="width:100%; padding:8px; border-radius:6px; background:var(--color-bg); border:1px solid var(--color-border); color:inherit;" />
+        </div>
+        <button type="button" class="btn btn-primary btn-sm" id="admin-assign-btn" style="width:100%;">Confirm Assignment</button>
+      </div>
+
+      <div class="card mb-4">
+        <h4>🔄 Status actions</h4>
+        <div id="status-actions" style="display:flex;flex-direction:column;gap:8px;"></div>
+        <button class="btn btn-secondary btn-sm mt-4" id="checkout-btn" style="display:none; width:100%;">
+          ⭐ Upgrade to priority (₹199 via Cashfree)
+        </button>
+        <button class="btn btn-ghost btn-sm text-faint mt-2" id="simulate-pay-btn" style="display:none; width:100%; font-size:11px;">
+          ⚡ Test Sandbox Upgrade (Instant)
+        </button>
+      </div>
+
+      <div class="card mb-4">
+        <h4>ℹ️ Details</h4>
+        <div class="text-sm" style="display:flex;flex-direction:column;gap:8px;">
+          <div class="flex-between"><span class="text-muted">Category</span> <span id="complaint-category">—</span></div>
+          <div class="flex-between"><span class="text-muted">Assigned staff</span> <span id="complaint-staff">—</span></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h4>📅 Timeline</h4>
+        <div id="complaint-timeline" class="timeline" style="margin-top: var(--space-3);"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Status Update Modal -->
+<div id="status-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.65); z-index:9999; align-items:center; justify-content:center; backdrop-filter:blur(4px);">
+  <div class="card" style="max-width:480px; width:90%; margin:auto; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);">
+    <h4 id="status-modal-title" style="margin-bottom:4px;">Update Status</h4>
+    <p id="status-modal-desc" class="text-muted text-sm mb-3">Provide remarks or a resolution note for this status transition.</p>
+    <div class="form-group mb-3">
+      <label for="status-modal-note" id="status-modal-label">Remarks / Note</label>
+      <textarea id="status-modal-note" rows="3" placeholder="Enter details..." style="width:100%; padding:8px; border-radius:6px; background:var(--color-bg); border:1px solid var(--color-border); color:inherit; font-family:inherit; resize:vertical;"></textarea>
+    </div>
+    <div class="flex gap-2" style="justify-content:flex-end;">
+      <button type="button" class="btn btn-ghost btn-sm" id="status-modal-cancel">Cancel</button>
+      <button type="button" class="btn btn-primary btn-sm" id="status-modal-confirm">Confirm Update</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+<script src="../js/api.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/socket.js"></script>
+<script src="../js/notifications.js"></script>
+<script src="../js/complaints.js"></script>
+<script>
+  renderNavbar();
+  initComplaintDetail();
+</script>
+</body>
+</html>

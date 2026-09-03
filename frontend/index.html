@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SolveIt — AI-powered Complaint & Resolution Platform</title>
+<meta name="description" content="SolveIt routes, prioritizes, and escalates complaints for hostels, colleges, offices, and communities in real time using AI triage." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="css/main.css" />
+<link rel="stylesheet" href="css/components.css" />
+<link rel="stylesheet" href="css/pages.css" />
+</head>
+<body>
+<div id="navbar" class="navbar"></div>
+
+<div class="hero">
+  <div class="hero-badge">✨ AI-powered complaint triage — now live</div>
+  <h1>Complaints resolved faster,<br/>with AI doing the heavy lifting.</h1>
+  <p>SolveIt routes, prioritizes, and escalates complaints for hostels, colleges, offices, and communities in real time — so nothing falls through the cracks.</p>
+  <div class="hero-cta">
+    <a href="/register.html" class="btn btn-primary btn-lg">Get started free</a>
+    <a href="/login.html" class="btn btn-ghost btn-lg">I have an account →</a>
+  </div>
+
+  <div class="container feature-grid">
+    <div class="feature-card">
+      <span class="feature-icon">🤖</span>
+      <h4>AI triage</h4>
+      <p>Complaints are auto-classified, checked for duplicates, and given a suggested resolution — all in the background.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">⏱️</span>
+      <h4>SLA-aware</h4>
+      <p>Configurable SLA rules per category and priority auto-escalate anything at risk of breach before it's too late.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🔔</span>
+      <h4>Real-time updates</h4>
+      <p>Status changes, assignments, and comments update instantly over Socket.IO — no refreshing required.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">📊</span>
+      <h4>Admin analytics</h4>
+      <p>Resolution time, SLA breach rate, and category trends at a glance with daily trend breakdowns.</p>
+    </div>
+  </div>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+<script>renderNavbar();</script>
+</body>
+</html>

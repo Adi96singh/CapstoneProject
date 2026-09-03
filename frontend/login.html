@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Log in — SolveIt</title>
+<meta name="description" content="Log in to your SolveIt account to manage and track complaints." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="css/main.css" />
+<link rel="stylesheet" href="css/components.css" />
+<link rel="stylesheet" href="css/pages.css" />
+</head>
+<body>
+<div id="navbar" class="navbar"></div>
+
+<div class="auth-card">
+  <div class="auth-panel">
+    <div class="auth-logo">
+      <div class="auth-logo-mark">⚡</div>
+      <span class="auth-logo-text">SolveIt</span>
+    </div>
+
+    <h2>Welcome back</h2>
+
+    <form id="login-form">
+      <div class="form-group">
+        <label for="email">Email address</label>
+        <input type="email" id="email" placeholder="you@example.com" required autocomplete="email" />
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <div class="password-wrapper">
+          <input type="password" id="password" placeholder="••••••••" required autocomplete="current-password" />
+          <button type="button" class="password-toggle" title="Show/hide password">👁</button>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block btn-lg">Log in</button>
+    </form>
+
+    <div class="auth-switch">
+      <a href="/forgot-password.html">Forgot password?</a> · No account? <a href="/register.html">Register</a>
+    </div>
+
+    <div class="demo-creds">
+      <strong>Demo logins:</strong><br />
+      admin@solveit.app / Admin@123<br />
+      staff.facilities@solveit.app / Staff@123<br />
+      user@solveit.app / User@123
+    </div>
+  </div>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+</body>
+</html>

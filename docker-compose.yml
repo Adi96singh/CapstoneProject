@@ -1,0 +1,30 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: solveit-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: solveit
+    ports:
+      - "3306:3306"
+    volumes:
+      - solveit_mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    container_name: solveit-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - solveit_redis_data:/data
+
+volumes:
+  solveit_mysql_data:
+  solveit_redis_data:
