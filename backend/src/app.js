@@ -51,6 +51,10 @@ const devOrigins =
 
 const connectSrc = ["'self'", ...clientOrigins, ...websocketOrigins, ...devOrigins];
 
+// Root healthcheck for cloud platforms (Render, Railway, Kubernetes)
+app.get("/healthz", (req, res) => res.status(200).send("OK"));
+app.get("/health", (req, res) => res.status(200).send("OK"));
+
 app.use(
   helmet({
     contentSecurityPolicy: {

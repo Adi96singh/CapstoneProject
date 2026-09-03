@@ -48,8 +48,8 @@ async function start() {
 
   startCronJobs();
 
-  // If running on a single cloud host (like Railway / Render), embed queue workers
-  if (process.env.RUN_WORKER_IN_PROCESS === "true" || (process.env.NODE_ENV === "production" && !process.env.STANDALONE_WORKER)) {
+  // If running on a single cloud host (like Railway / Render), embed queue workers only if Redis is configured
+  if (process.env.REDIS_URL && (process.env.RUN_WORKER_IN_PROCESS === "true" || process.env.NODE_ENV === "production")) {
     try {
       require("./src/workers");
       logger.info("[workers] Background workers started in-process");
@@ -58,9 +58,9 @@ async function start() {
     }
   }
 
-  server.listen(PORT, () => {
+  server.listen(PORT, "0.0.0.0", () => {
     logger.info(`SolveIt backend listening on port ${PORT}`);
-    logger.info(`Client available at http://localhost:${PORT}`);
+    logger.info(`Client available at http://0.0.0.0:${PORT}`);
   });
 }
 
