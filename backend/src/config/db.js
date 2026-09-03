@@ -4,18 +4,30 @@ require("dotenv").config({ path: path.resolve(__dirname, "../../.env") });
 require("dotenv").config({ path: path.resolve(__dirname, "../../../.env") });
 require("dotenv").config();
 
-const dbUrl = process.env.MYSQL_URL || process.env.DATABASE_URL;
+let rawDbUrl = process.env.MYSQL_URL || process.env.DATABASE_URL;
+let cleanDbUrl = rawDbUrl;
+let useSsl = false;
 
-const useSsl =
-  process.env.DB_SSL === "true" ||
-  (dbUrl && (dbUrl.includes("ssl=") || dbUrl.includes("tidbcloud") || dbUrl.includes("aivencloud")));
+if (rawDbUrl) {
+  useSsl =
+    process.env.DB_SSL === "true" ||
+    rawDbUrl.includes("ssl") ||
+    rawDbUrl.includes("tidbcloud") ||
+    rawDbUrl.includes("aivencloud");
+
+  // Strip ?ssl=... or &ssl=... query parameters because mysql2 mistakes it
+  // for a named SSL profile string instead of an object
+  cleanDbUrl = rawDbUrl
+    .replace(/[?&]ssl=[^&]*/gi, "")
+    .replace(/\?$/, "");
+}
 
 const dialectOptions = useSsl
   ? { ssl: { require: true, rejectUnauthorized: false } }
   : {};
 
-const sequelize = dbUrl
-  ? new Sequelize(dbUrl, {
+const sequelize = cleanDbUrl
+  ? new Sequelize(cleanDbUrl, {
       dialect: "mysql",
       dialectOptions,
       logging: process.env.NODE_ENV === "development" ? console.log : false,
