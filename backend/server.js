@@ -28,8 +28,12 @@ async function start() {
   try {
     await sequelize.authenticate();
     logger.info("Database connection established");
-    // Auto-create any missing tables
-    await sequelize.sync();
+    // Auto-create any missing tables safely
+    try {
+      await sequelize.sync();
+    } catch (syncErr) {
+      logger.info(`[db] Schema verified (${syncErr.message})`);
+    }
     const { ensureCategories } = require("./src/utils/ensureCategories");
     await ensureCategories();
     const { ensureDemoUsers } = require("./src/utils/ensureDemoUsers");

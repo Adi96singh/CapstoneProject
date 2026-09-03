@@ -21,16 +21,17 @@ if (rawDbUrl) {
     .replace(/[?&]ssl=[^&]*/gi, "")
     .replace(/\?$/, "");
 
-  // Ensure a valid database name is targeted (default to /test if missing or empty)
+  // Ensure a valid user database is targeted (redirect /sys, /mysql or root to /test)
   try {
     const parsed = new URL(cleanDbUrl);
-    if (!parsed.pathname || parsed.pathname === "/" || parsed.pathname === "") {
+    const systemSchemas = ["", "/", "/sys", "/mysql", "/information_schema", "/performance_schema"];
+    if (systemSchemas.includes(parsed.pathname)) {
       parsed.pathname = `/${process.env.DB_NAME || "test"}`;
       cleanDbUrl = parsed.toString();
     }
   } catch (err) {
-    if (cleanDbUrl.endsWith(":4000/") || cleanDbUrl.endsWith(":4000")) {
-      cleanDbUrl = cleanDbUrl.replace(/:4000\/?$/, ":4000/test");
+    if (cleanDbUrl.endsWith(":4000/") || cleanDbUrl.endsWith(":4000") || cleanDbUrl.endsWith(":4000/sys")) {
+      cleanDbUrl = cleanDbUrl.replace(/:4000(\/(sys)?)?$/, ":4000/test");
     }
   }
 }
