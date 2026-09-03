@@ -6,9 +6,18 @@ require("dotenv").config();
 
 const dbUrl = process.env.MYSQL_URL || process.env.DATABASE_URL;
 
+const useSsl =
+  process.env.DB_SSL === "true" ||
+  (dbUrl && (dbUrl.includes("ssl=") || dbUrl.includes("tidbcloud") || dbUrl.includes("aivencloud")));
+
+const dialectOptions = useSsl
+  ? { ssl: { require: true, rejectUnauthorized: false } }
+  : {};
+
 const sequelize = dbUrl
   ? new Sequelize(dbUrl, {
       dialect: "mysql",
+      dialectOptions,
       logging: process.env.NODE_ENV === "development" ? console.log : false,
       define: {
         underscored: true,
@@ -29,6 +38,7 @@ const sequelize = dbUrl
         host: process.env.DB_HOST || "localhost",
         port: process.env.DB_PORT || 3306,
         dialect: "mysql",
+        dialectOptions,
         logging: process.env.NODE_ENV === "development" ? console.log : false,
         define: {
           underscored: true,
