@@ -9,7 +9,8 @@ const logger = require("./src/config/logger");
 const { initSockets } = require("./src/sockets");
 const { startCronJobs } = require("./src/jobs/cron");
 
-const PORT = process.env.PORT || 5000;
+let rawPort = Number(process.env.PORT);
+const PORT = (!isNaN(rawPort) && rawPort > 0 && rawPort < 65536) ? rawPort : 10000;
 const server = http.createServer(app);
 
 initSockets(server);
